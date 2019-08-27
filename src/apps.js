@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('../config');
 const vidUtils = require('./vidUtils');
+const commands = require("./commands");
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -19,28 +20,7 @@ client.on('message', msg => {
         && msg.deletable)
         msg.delete().catch(o => { });
 
-    let content = msg.content.slice(config.discord.prefix.length);
-
-    if (!content) {
-        msg.channel.send(`<@${msg.author.id}>` + vidUtils.getAllVideosTXT(), {
-            split: true
-        }).catch(o => { });
-    } else {
-        const items = vidUtils.getVideos(content);
-        if (items.length == 0)
-            msg.channel.send(`<@${msg.author.id}> **Filtre :** ${content}\n\n:x: Aucun résultat`).catch(o => { });
-        else if (items.length > 1)
-            msg.channel.send(`<@${msg.author.id}> **Filtre :** ${content}\n` + vidUtils.getVideosTXT(items), {
-                split: true
-            }).catch(o => { });
-        else
-            msg.channel.send({
-                files: [{
-                    attachment: items[0].folder,
-                    name: items[0].name + "." + items[0].extension
-                }]
-            }).catch(o => { });
-    }
+    commands.content(msg);
 });
 
 client.login(config.discord.token);
