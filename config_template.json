@@ -3,5 +3,8 @@
         "prefix": "v.",
         "game": "wtf videos",
         "token": ""
+    },
+    "bot": {
+        "refreshInterval": 60
     }
 }

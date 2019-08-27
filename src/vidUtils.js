@@ -1,5 +1,8 @@
 const fs = require('fs');
+const VideoCache = require("./videoCache");
+
 const folder = "./assets/";
+const cache = new VideoCache(folder);
 
 exports.getAllVideosTXT = () => {
     return new Promise(async (resolve) => resolve(toStringItems(await this.getAllVideos())));
@@ -49,7 +52,7 @@ exports.getAllVideos = () => {
     });
 }
 
-var walk = function (dir) {
+function walk(dir) {
     let results = [];
     let list = fs.readdirSync(dir);
 
