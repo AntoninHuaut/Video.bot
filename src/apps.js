@@ -14,7 +14,7 @@ client.on('message', msg => {
     if (!msg.content.startsWith(config.discord.prefix))
         return;
 
-    if (msg.guild.me.hasPermission("MANAGE_MESSAGES") && msg.deletable)
+    if (!(msg.channel instanceof Discord.DMChannel) && msg.guild.me.hasPermission("MANAGE_MESSAGES") && msg.deletable)
         msg.delete().catch(o => {});
 
     let content = msg.content.slice(config.discord.prefix.length);

@@ -9,13 +9,12 @@ module.exports = class VideoCache {
 
         this.cachedRq = {};
         this.refresh();
-        console.log(this.get("test"));
-        console.log(this.cachedRq);
-        console.log(this.get("test2ZD"));
-        console.log(this.cachedRq);
     }
 
     get(filter) {
+        if(!filter)
+            return this.videos;
+        
         if (!this.cachedRq[filter]) {
             const filtered = this.videos.filter(item => {
                 let okName = filter == item.name || item.name.includes(filter);
@@ -26,9 +25,9 @@ module.exports = class VideoCache {
                 return okName || okAlias;
             });
 
-            if(filtered.length === 0)
+            if (filtered.length === 0)
                 return [];
-            
+
             this.cachedRq[filter] = filtered;
         }
 
@@ -36,21 +35,20 @@ module.exports = class VideoCache {
     }
 
     refresh() {
-        console.log("Refreshing");
-        this.videos = this.walk()
+        this.videos = this.walk(this.folder)
             .map(i => new Video(i))
             .sort((i1, i2) => i1.name > i2.name);
     }
 
-    walk() {
-        const results = [];
-        const list = fs.readdirSync(this.folder);
+    walk(dir) {
+        let results = [];
+        let list = fs.readdirSync(dir);
 
         list.forEach(file => {
-            file = this.folder + '/' + file;
+            file = dir + '/' + file;
             let stat = fs.statSync(file);
             if (stat && stat.isDirectory())
-                results = results.concat(walk(file));
+                results = results.concat(this.walk(file));
             else
                 results.push(file);
         });
