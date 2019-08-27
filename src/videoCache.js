@@ -38,6 +38,7 @@ module.exports = class VideoCache {
         this.videos = this.walk(this.folder)
             .map(i => new Video(i))
             .sort((i1, i2) => i1.name > i2.name);
+
     }
 
     walk(dir) {
