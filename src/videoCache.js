@@ -12,9 +12,9 @@ module.exports = class VideoCache {
     }
 
     get(filter) {
-        if(!filter)
+        if (!filter)
             return this.videos;
-        
+
         if (!this.cachedRq[filter]) {
             const filtered = this.videos.filter(item => {
                 let okName = filter == item.name || item.name.includes(filter);
@@ -37,9 +37,13 @@ module.exports = class VideoCache {
     refresh() {
         this.videos = this.walk(this.folder)
             .map(i => new Video(i))
-            .sort((i1, i2) => i1.name > i2.name);
+            .sort((i1, i2) => {
+                let n1 = (i1.alias ? i1.alias : " ") + i1.name.toLowerCase();
+                let n2 = (i2.alias ? i2.alias : " ") + i2.name.toLowerCase();
+                return (n1 < n2) ? -1 : (n1 > n2) ? 1 : 0;
+            });
         this.cachedRq = {};
-    }  
+    }
 
     walk(dir) {
         let results = [];
