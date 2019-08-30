@@ -5,6 +5,7 @@
         "token": ""
     },
     "bot": {
-        "refreshInterval": 60
+        "refreshInterval": 600,
+        "owner": ["87000718623412224", "151044810906664960"]
     }
 }

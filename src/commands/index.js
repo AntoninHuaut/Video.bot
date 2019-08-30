@@ -1,3 +1,4 @@
 module.exports = {
-    content: require("./content")
+    content: require("./content"),
+    reload: require("./reload")
 }

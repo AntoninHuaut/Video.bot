@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('../config');
-const vidUtils = require('./vidUtils');
 const commands = require("./commands");
 
 client.on('ready', () => {
@@ -18,6 +17,8 @@ client.on('message', msg => {
     if (msg.deletable && msg.guild.me.hasPermission("MANAGE_MESSAGES"))
         msg.delete().catch(o => {});
 
+    if (msg == config.discord.prefix + 'reload') return commands.reload(msg);
+    
     commands.content(msg);
 });
 
