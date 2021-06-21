@@ -16,9 +16,7 @@ client.on("message", (msg) => {
 	if (msg.deletable && msg.guild.me.hasPermission("MANAGE_MESSAGES"))
 		msg.delete().catch((o) => {});
 
-	if (msg.content == config.discord.prefix + "reload")
-		return commands.reload(msg);
-
+	if (msg.content == config.discord.prefix + "reload") return commands.reload(msg);
 	commands.content(msg);
 });
 

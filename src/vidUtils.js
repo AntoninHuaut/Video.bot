@@ -24,7 +24,5 @@ exports.getAllVideos = () => {
 };
 
 function toStringItems(items) {
-	return items
-		.map((item) => "\n" + item.name + (item.alias ? ` *(${item.alias})*` : ""))
-		.join("");
+	return items.map((item) => "\n" + item.name + (item.alias ? ` *(${item.alias})*` : "")).join("");
 }

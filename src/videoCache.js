@@ -3,10 +3,7 @@ const config = require("../config");
 
 module.exports = class VideoCache {
 	constructor(folder) {
-		this.refreshInterval = setInterval(
-			() => this.refresh(),
-			config.bot.refreshInterval * 1000,
-		);
+		this.refreshInterval = setInterval(() => this.refresh(), config.bot.refreshInterval * 1000);
 		this.folder = folder;
 
 		this.cachedRq = {};
