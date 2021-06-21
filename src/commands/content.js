@@ -8,8 +8,7 @@ module.exports = function (msg) {
 };
 
 function unfiltered(msg) {
-    msg.channel
-        .send(`<@${msg.author.id}>` + vidUtils.getAllVideosTXT(), {
+    msg.reply(vidUtils.getAllVideosTXT(), {
             split: true,
         })
         .catch((o) => {});
@@ -18,16 +17,15 @@ function unfiltered(msg) {
 function filtered(content, msg) {
     const items = vidUtils.getVideos(content);
     if (items.length == 0)
-        msg.channel.send(`<@${msg.author.id}> **Filtre :** ${content}\n\n:x: Aucun résultat`)
+        msg.reply(`**Filtre :** ${content}\n\n:x: Aucun résultat`)
         .catch((o) => {});
     else if (items.length > 1)
-        msg.channel.send(`<@${msg.author.id}> **Filtre :** ${content}\n` + vidUtils.getVideosTXT(items), {
+        msg.reply(`**Filtre :** ${content}\n` + vidUtils.getVideosTXT(items), {
             split: true,
         })
         .catch((o) => {});
     else
-        msg.channel.send({
-            content: `<@${msg.author.id}>`,
+        msg.reply({
             files: [{
                 attachment: items[0].folder,
                 name: items[0].name + "." + items[0].extension,
