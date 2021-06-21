@@ -25,7 +25,8 @@ function filtered(content, msg) {
         })
         .catch((o) => {});
     else
-        msg.reply({
+        msg.channel.send({
+            content: `<@${msg.author.id}>`,
             files: [{
                 attachment: items[0].folder,
                 name: items[0].name + "." + items[0].extension,
